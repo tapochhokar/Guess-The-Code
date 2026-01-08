@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Guess the Code</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="confetti-container"></div>
+
+    <main class="app-wrapper">
+        
+        <section id="screen-start" class="screen active">
+            <div class="hero-content">
+                <div class="logo-circle">
+                    <span class="lock-icon">🔐</span>
+                </div>
+                <h1>Code Breaker</h1>
+                <p class="subtitle">Use logic to crack the secure pin.</p>
+                
+                <div class="feature-pills">
+                    <span>🧠 Logic</span>
+                    <span>⚡ Speed</span>
+                    <span>🏆 Rank</span>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary btn-large" onclick="gameApp.switchScreen('screen-setup')">
+                New Game
+            </button>
+        </section>
+
+        <section id="screen-setup" class="screen hidden">
+            <header class="screen-header">
+                <button class="btn-icon" onclick="gameApp.switchScreen('screen-start')">←</button>
+                <h2>Configure</h2>
+            </header>
+
+            <div class="settings-container">
+                <div class="setting-group">
+                    <label>Code Length</label>
+                    <div class="segmented-control" id="length-control">
+                        <button class="seg-btn" onclick="ui.setLength(3)" data-val="3">3</button>
+                        <button class="seg-btn active" onclick="ui.setLength(4)" data-val="4">4</button>
+                        <button class="seg-btn" onclick="ui.setLength(5)" data-val="5">5</button>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label>Difficulty</label>
+                    <div class="segmented-control" id="diff-control">
+                        <button class="seg-btn" onclick="ui.setDiff('easy')" data-val="easy">Easy</button>
+                        <button class="seg-btn active" onclick="ui.setDiff('medium')" data-val="medium">Med</button>
+                        <button class="seg-btn" onclick="ui.setDiff('hard')" data-val="hard">Hard</button>
+                    </div>
+                </div>
+
+                <div class="setting-card-toggle" onclick="ui.toggleRepeats()">
+                    <div class="text-info">
+                        <span class="label">Allow Duplicate Numbers</span>
+                        <span class="sublabel" id="repeat-text">Off (e.g., 1234)</span>
+                    </div>
+                    <div class="toggle-switch" id="repeat-switch">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-large bottom-stick" onclick="gameApp.initGame()">Start Mission</button>
+        </section>
+
+        <section id="screen-game" class="screen hidden">
+            <header class="game-header">
+                <div class="attempts-badge">
+                    <span class="dot"></span>
+                    <span id="attempts-count">8</span> Left
+                </div>
+                <div class="header-actions">
+                    <button class="btn-icon hint-btn" onclick="gameApp.useHint()" id="btn-hint">
+                        💡 <span id="hints-left" class="badge-count">3</span>
+                    </button>
+                    <button class="btn-icon" onclick="gameApp.confirmRestart()">↻</button>
+                </div>
+            </header>
+
+            <div class="game-board">
+                
+                <div id="feedback-area" class="feedback-toast">
+                    Enter the code to begin
+                </div>
+
+                <div class="input-zone">
+                    <div id="otp-container" class="otp-inputs">
+                        </div>
+                    <button class="btn-submit-round" onclick="gameApp.submitGuess()">
+                        ➜
+                    </button>
+                </div>
+
+                <div class="history-scroll-area">
+                    <div class="history-label">Session Log</div>
+                    <div id="history-list" class="history-list">
+                        </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="screen-result" class="screen hidden">
+            <div class="result-card">
+                <div class="result-visual" id="result-visual">🎉</div>
+                <h1 id="result-title">Cracked!</h1>
+                <p id="result-msg">System Access Granted</p>
+                
+                <div class="code-display">
+                    <div id="final-code" class="secret-reveal"></div>
+                    <span class="label">SECURE PIN</span>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat">
+                        <small>Attempts</small>
+                        <strong id="stat-attempts">0</strong>
+                    </div>
+                    <div class="stat">
+                        <small>Hints</small>
+                        <strong id="stat-hints">0</strong>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="gameApp.initGame()">Play Again</button>
+                    <button class="btn btn-secondary" onclick="gameApp.switchScreen('screen-start')">Main Menu</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
