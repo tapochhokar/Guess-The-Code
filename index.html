@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Guess the Code</title>
+    <title>Code Breaker</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,18 +21,18 @@
                     <span class="lock-icon">🔐</span>
                 </div>
                 <h1>Code Breaker</h1>
-                <p class="subtitle">Use logic to crack the secure pin.</p>
+                <p class="subtitle">Use logic to crack the secure pin before the system locks you out.</p>
                 
                 <div class="feature-pills">
                     <span>🧠 Logic</span>
                     <span>⚡ Speed</span>
-                    <span>🏆 Rank</span>
+                    <span>🔊 FX</span>
                 </div>
+
+                <button class="btn btn-primary btn-large" onclick="gameApp.switchScreen('screen-setup')">
+                    New Game
+                </button>
             </div>
-            
-            <button class="btn btn-primary btn-large" onclick="gameApp.switchScreen('screen-setup')">
-                New Game
-            </button>
         </section>
 
         <section id="screen-setup" class="screen hidden">
@@ -81,9 +81,7 @@
                     <span id="attempts-count">8</span> Left
                 </div>
                 <div class="header-actions">
-                    <button class="btn-icon hint-btn" onclick="gameApp.useHint()" id="btn-hint">
-                        💡 <span id="hints-left" class="badge-count">3</span>
-                    </button>
+                    <button class="btn-icon" onclick="audio.toggle()" id="btn-sound">🔊</button>
                     <button class="btn-icon" onclick="gameApp.confirmRestart()">↻</button>
                 </div>
             </header>
@@ -91,7 +89,7 @@
             <div class="game-board">
                 
                 <div id="feedback-area" class="feedback-toast">
-                    Enter the code to begin
+                    Initialize Sequence
                 </div>
 
                 <div class="input-zone">
@@ -103,7 +101,12 @@
                 </div>
 
                 <div class="history-scroll-area">
-                    <div class="history-label">Session Log</div>
+                    <div class="history-header-row">
+                        <span>Session Log</span>
+                        <button class="btn-text-small" onclick="gameApp.useHint()" id="btn-hint">
+                            💡 Hint (<span id="hints-left">3</span>)
+                        </button>
+                    </div>
                     <div id="history-list" class="history-list">
                         </div>
                 </div>
